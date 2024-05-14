@@ -1,20 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, View } from "react-native";
+import HomeScreen from "./src/screens/HomeScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ConversionScreen from "./src/screens/ConversionScreen";
+import { colors } from "./src/constants/colorTheme";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <NavigationContainer>
+        <StatusBar backgroundColor={colors.black} />
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              headerStyle: { backgroundColor: colors.purple },
+              headerTitleStyle: { color: colors.white },
+              headerTintColor: "white",
+              headerTitleAlign: "center",
+              title: "Unit Conversions",
+            }}
+          />
+          <Stack.Screen
+            name="Conversion"
+            component={ConversionScreen}
+            options={{
+              headerStyle: { backgroundColor: colors.purple },
+              headerTitleStyle: { color: colors.white },
+              headerTintColor: "white",
+              headerTitleAlign: "center",
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: colors.lightPurple,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
