@@ -3,36 +3,36 @@ import IConvertingUnits from "../typescript/IConvertingUnits";
 import { IPossibleUnits } from "../typescript/IPossibleUnits";
 
 export const massUnits: Record<string, IConvertingUnits> = {
-  kilogram: { name: "kilogram", symbol: "kg", toBaseUnitFactor: 1 }, // Base unit
-  gram: { name: "gram", symbol: "g", toBaseUnitFactor: 0.001 }, // 1 gram = 0.001 kilograms
-  milligram: { name: "milligram", symbol: "mg", toBaseUnitFactor: 0.000001 }, // 1 milligram = 0.000001 kilograms
-  pound: { name: "pound", symbol: "lb", toBaseUnitFactor: 0.453592 }, // 1 pound ≈ 0.453592 kilograms
-  ounce: { name: "ounce", symbol: "oz", toBaseUnitFactor: 0.0283495 }, // 1 ounce ≈ 0.0283495 kilograms
+  kilogram: { name: "Kilogram", symbol: "kg", toBaseUnitFactor: 1 }, // Base unit
+  gram: { name: "Gram", symbol: "g", toBaseUnitFactor: 0.001 }, // 1 gram = 0.001 kilograms
+  milligram: { name: "Milligram", symbol: "mg", toBaseUnitFactor: 0.000001 }, // 1 milligram = 0.000001 kilograms
+  pound: { name: "Pound", symbol: "lb", toBaseUnitFactor: 0.453592 }, // 1 pound ≈ 0.453592 kilograms
+  ounce: { name: "Ounce", symbol: "oz", toBaseUnitFactor: 0.0283495 }, // 1 ounce ≈ 0.0283495 kilograms
 };
 
 export const lengthUnits: Record<string, IConvertingUnits> = {
-  meter: { name: "meter", symbol: "m", toBaseUnitFactor: 1 },
-  kilometer: { name: "kilometer", symbol: "km", toBaseUnitFactor: 1000 },
-  centimeter: { name: "centimeter", symbol: "cm", toBaseUnitFactor: 0.01 },
-  millimeter: { name: "millimeter", symbol: "mm", toBaseUnitFactor: 0.001 },
-  mile: { name: "mile", symbol: "mi", toBaseUnitFactor: 1609.34 },
-  yard: { name: "yard", symbol: "yd", toBaseUnitFactor: 0.9144 },
-  foot: { name: "foot", symbol: "ft", toBaseUnitFactor: 0.3048 },
-  inch: { name: "inch", symbol: "in", toBaseUnitFactor: 0.0254 },
+  meter: { name: "Meter", symbol: "m", toBaseUnitFactor: 1 },
+  kilometer: { name: "Kilometer", symbol: "km", toBaseUnitFactor: 1000 },
+  centimeter: { name: "Centimeter", symbol: "cm", toBaseUnitFactor: 0.01 },
+  millimeter: { name: "Millimeter", symbol: "mm", toBaseUnitFactor: 0.001 },
+  mile: { name: "Mile", symbol: "mi", toBaseUnitFactor: 1609.34 },
+  yard: { name: "Yard", symbol: "yd", toBaseUnitFactor: 0.9144 },
+  foot: { name: "Foot", symbol: "ft", toBaseUnitFactor: 0.3048 },
+  inch: { name: "Inch", symbol: "in", toBaseUnitFactor: 0.0254 },
 };
 
 export const temperatureUnits: Record<string, IConvertingUnits> = {
-  celsius: { name: "celsius", symbol: "°C", toBaseUnitFactor: 1 }, // Base unit
-  fahrenheit: { name: "fahrenheit", symbol: "°F", toBaseUnitFactor: 1 }, // Conversion logic needed
-  kelvin: { name: "kelvin", symbol: "K", toBaseUnitFactor: 1 }, // Conversion logic needed
+  celsius: { name: "Celsius", symbol: "°C", toBaseUnitFactor: 1 }, // Base unit
+  fahrenheit: { name: "Fahrenheit", symbol: "°F", toBaseUnitFactor: 1 }, // Conversion logic needed
+  kelvin: { name: "Kelvin", symbol: "K", toBaseUnitFactor: 1 }, // Conversion logic needed
 };
 
 export const speedUnits: Record<string, IConvertingUnits> = {
-  metersPerSecond: { name: "meters per second", symbol: "m/s", toBaseUnitFactor: 1 }, // Base unit
-  kilometersPerHour: { name: "kilometers per hour", symbol: "km/h", toBaseUnitFactor: 0.277778 }, // 1 km/h = 0.277778 m/s
-  milesPerHour: { name: "miles per hour", symbol: "mph", toBaseUnitFactor: 0.44704 }, // 1 mph = 0.44704 m/s
-  feetPerSecond: { name: "feet per second", symbol: "ft/s", toBaseUnitFactor: 0.3048 }, // 1 ft/s = 0.3048 m/s
-  knot: { name: "knot", symbol: "kn", toBaseUnitFactor: 0.514444 }, // 1 knot = 0.514444 m/s
+  metersPerSecond: { name: "Meters per second", symbol: "m/s", toBaseUnitFactor: 1 }, // Base unit
+  kilometersPerHour: { name: "Kilometers per hour", symbol: "km/h", toBaseUnitFactor: 0.277778 }, // 1 km/h = 0.277778 m/s
+  milesPerHour: { name: "Miles per hour", symbol: "mph", toBaseUnitFactor: 0.44704 }, // 1 mph = 0.44704 m/s
+  feetPerSecond: { name: "Feet per second", symbol: "ft/s", toBaseUnitFactor: 0.3048 }, // 1 ft/s = 0.3048 m/s
+  knot: { name: "Knot", symbol: "kn", toBaseUnitFactor: 0.514444 }, // 1 knot = 0.514444 m/s
 };
 
 type temperatureUnits = "celsius" | "fahrenheit" | "kelvin";

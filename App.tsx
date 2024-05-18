@@ -46,7 +46,7 @@ function AppContent() {
 export default function App() {
   return (
     <Provider store={store}>
-      <AppContent />
+      <AppContent/>
     </Provider>
   );
 }
@@ -54,7 +54,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.lightPurple,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

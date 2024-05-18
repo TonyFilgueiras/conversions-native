@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: colors.lightPurple,
+    backgroundColor: colors.backgroundPurple,
   },
   row: {
     flex: 1,

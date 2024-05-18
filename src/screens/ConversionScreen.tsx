@@ -1,61 +1,27 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
-import SelectDropdown from "react-native-select-dropdown";
 import React from "react";
+import { View, Text, TextInput } from "react-native";
+import SelectDropdown from "react-native-select-dropdown";
 import { colors } from "../constants/colorTheme";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useConversion, { lengthUnits, massUnits, speedUnits, temperatureUnits } from "../hooks/useConversion";
-import { IPossibleUnits } from "../typescript/IPossibleUnits";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import useConversionLogic from "../hooks/useConversionLogic";
+import { StyleSheet } from "react-native";
 
 export default function ConversionScreen() {
-  const unitConverting = useSelector((state: RootState) => state.unitConverting.unit);
-  const [value1, setValue1] = React.useState("0");
-  const [value2, setValue2] = React.useState("0");
-  const [unit1, setUnit1] = React.useState("");
-  const [unit2, setUnit2] = React.useState("");
-  const [symbol1, setSymbol1] = React.useState("");
-  const [symbol2, setSymbol2] = React.useState("");
-  const { convert } = useConversion();
-
-  const data = ["test2", "fdsafsa", "minha pica"];
-
-  const unitMapping: Record<string, any> = {
-    mass: {
-      defaultUnit1: "kilogram",
-      defaultUnit2: "pound",
-      units: massUnits,
-    },
-    length: {
-      defaultUnit1: "meter",
-      defaultUnit2: "foot",
-      units: lengthUnits,
-    },
-    temperature: {
-      defaultUnit1: "celsius",
-      defaultUnit2: "fahrenheit",
-      units: temperatureUnits,
-    },
-    speed: {
-      defaultUnit1: "metersPerSecond",
-      defaultUnit2: "milesPerHour",
-      units: speedUnits,
-    },
-  };
-
-  React.useEffect(() => {
-    const { defaultUnit1, defaultUnit2 } = unitMapping[unitConverting] || unitMapping.mass;
-    setUnit1(defaultUnit1);
-    setUnit2(defaultUnit2);
-    
-    console.log(unitConverting)
-    console.log(unitMapping[unitConverting].units[unit1])
-    console.log(unitMapping[unitConverting].units[unit2])
-
-    const value1Number = Number(value1);
-    const convertedValue = convert(value1Number, defaultUnit1, defaultUnit2, unitConverting);
-    setValue2(String(convertedValue));
-  }, [value1, unitConverting]);
+  const {
+    value1,
+    setValue1,
+    value2,
+    setValue2,
+    symbol1,
+    symbol2,
+    handleValueChange1,
+    handleValueChange2,
+    handleUnitChange1,
+    handleUnitChange2,
+    unitOptions,
+    selectedUnit1,
+    selectedUnit2,
+  } = useConversionLogic();
 
   return (
     <KeyboardAwareScrollView
@@ -65,20 +31,31 @@ export default function ConversionScreen() {
       scrollEnabled={true}
     >
       <View style={styles.unitContainer}>
-        <TextInput style={styles.input} onChangeText={setValue1} placeholder="0" keyboardType="number-pad" />
-
-        <Text style={styles.value}>{value1}</Text>
-        <Text style={styles.symbol}>({symbol1})</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={handleValueChange1}
+          placeholder="0"
+          onFocus={() => value1 === "0" && setValue1("")}
+          value={value1}
+          keyboardType="number-pad"
+        />
+        <View>
+          <Text style={styles.value}>{value1 ? value1 : "0"}</Text>
+          <Text style={styles.symbol}>({symbol1})</Text>
+        </View>
         <SelectDropdown
-          data={data}
-          onSelect={() => console.log("selecionado")}
-          renderButton={(selectedItem, isOpened) => {
-            return <View style={styles.dropdownButtonStyle}>{selectedItem && <Text>{selectedItem}</Text>}</View>;
+          data={unitOptions}
+          onSelect={(selectedItem) => handleUnitChange1(selectedItem.value)}
+          renderButton={() => {
+            return <View style={styles.dropdownButtonStyle}>{selectedUnit1 && <Text>{selectedUnit1.label}</Text>}</View>;
           }}
           renderItem={(item, index, isSelected) => {
+            if (item.value == selectedUnit1!.value) {
+              isSelected = true
+            }
             return (
-              <View style={{ ...(isSelected && { backgroundColor: "#D2D9DF" }) }}>
-                <Text>{item}</Text>
+              <View style={{ ...styles.dropdownMenuStyle, ...(isSelected && { backgroundColor: colors.lightPurple, borderWidth: 1 }) }}>
+                <Text>{item.label}</Text>
               </View>
             );
           }}
@@ -86,18 +63,44 @@ export default function ConversionScreen() {
       </View>
       <Text style={styles.text}>≅</Text>
       <View style={styles.unitContainer}>
-        <TextInput style={styles.input} onChangeText={setValue2} value={value2} keyboardType="number-pad" />
-        <Text style={styles.value}>{value2}</Text>
-        {/* <Text style={styles.symbol}>({unitMapping[unitConverting].units[unit2].symbol})</Text> */}
+        <TextInput
+          style={styles.input}
+          value={value2}
+          placeholder="0"
+          onChangeText={handleValueChange2}
+          onFocus={() => value2 === "0" && setValue2("")}
+          keyboardType="number-pad"
+        />
+        <View>
+          <Text style={styles.value}>{value2 ? value2 : "0"}</Text>
+          <Text style={styles.symbol}>({symbol2})</Text>
+        </View>
+        <SelectDropdown
+          data={unitOptions}
+          onSelect={(selectedItem) => handleUnitChange2(selectedItem.value)}
+          renderButton={() => {
+            return <View style={styles.dropdownButtonStyle}>{selectedUnit2 && <Text>{selectedUnit2.label}</Text>}</View>;
+          }}
+          renderItem={(item, index, isSelected) => {
+            if (item.value == selectedUnit2!.value) {
+              isSelected = true
+            }
+            return (
+              <View style={{ ...styles.dropdownMenuStyle, ...(isSelected && { backgroundColor: colors.lightPurple, borderWidth: 1 }) }}>
+                <Text>{item.label}</Text>
+              </View>
+            );
+          }}
+        />
       </View>
     </KeyboardAwareScrollView>
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.lightPurple,
+    backgroundColor: colors.backgroundPurple,
   },
   contentContainer: {
     flexGrow: 1,
@@ -111,6 +114,8 @@ const styles = StyleSheet.create({
   },
   unitContainer: {
     flex: 1,
+    backgroundColor: colors.lightPurple,
+    justifyContent: "space-between",
     margin: 20,
     borderColor: colors.purple,
     borderRadius: 20,
@@ -121,7 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     textAlign: "center",
     height: 40,
-    margin: 12,
+    margin: 10,
     borderWidth: 1,
     padding: 10,
   },
@@ -135,16 +140,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     includeFontPadding: false,
     textAlign: "center",
+    color: colors.purple,
   },
-
   dropdownButtonStyle: {
-    width: 200,
-    height: 50,
-    backgroundColor: "#E9ECEF",
-    borderRadius: 12,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 12,
+    backgroundColor: "white",
+    borderWidth: 1,
+    height: 40,
+    margin: 10,
+    padding: 10,
+  },
+  dropdownMenuStyle: {
+    paddingVertical: 10,
+    paddingHorizontal: 5,
   },
 });

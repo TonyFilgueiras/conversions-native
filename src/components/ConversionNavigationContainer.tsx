@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     borderWidth: 2,
     borderRadius: 20,
+    backgroundColor: colors.lightPurple,
     borderColor: colors.purple,
   },
   title: {
