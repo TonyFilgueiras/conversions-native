@@ -6,6 +6,9 @@ import speed from "../../assets/speed.png";
 import temp from "../../assets/temp.png";
 import weight from "../../assets/weight.png";
 import length from "../../assets/length.png";
+import { useDispatch } from "react-redux";
+import { changeUnit } from "../store/unitConvertingSlice";
+import { IPossibleUnits } from "../typescript/IPossibleUnits";
 
 type Props = {
   title: string;
@@ -14,6 +17,7 @@ type Props = {
 } & TouchableOpacityProps;
 
 export default function ConversionNavigationContainer({ title, linkTo, navigation, ...props }: Props) {
+  const dispatch = useDispatch()
   let cardImage;
 
   switch (title) {
@@ -23,7 +27,7 @@ export default function ConversionNavigationContainer({ title, linkTo, navigatio
     case "Temperature":
       cardImage = temp;
       break;
-    case "Weight":
+    case "Mass":
       cardImage = weight;
       break;
 
@@ -33,7 +37,8 @@ export default function ConversionNavigationContainer({ title, linkTo, navigatio
   }
 
   const handleCellPress = () => {
-    navigation.navigate("Conversion", { name: title });
+    dispatch(changeUnit(title.toLowerCase() as IPossibleUnits))
+    navigation.navigate("Conversion", { unitConverting: title.toLowerCase() });
   };
 
   return (
@@ -55,7 +60,8 @@ const styles = StyleSheet.create({
     borderColor: colors.purple,
   },
   title: {
-    flex: 1, 
+    flex: 1,
+    paddingTop: 20,
     fontSize: 20,
     fontWeight: "bold",
     color: colors.purple,
