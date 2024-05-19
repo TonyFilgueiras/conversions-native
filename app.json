@@ -18,10 +18,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ebdbff"
-      }
+      },
+      "package": "com.expo.buc"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a6964979-a979-4a31-a006-fdcf2a52ad91"
+      }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-3664148475226821~5782224309",
+    "user_tracking_usage_description": "This identifier will be used to deliver personalized ads to you."
   }
 }
