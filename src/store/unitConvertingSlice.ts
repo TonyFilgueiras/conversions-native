@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IPossibleUnits } from '../typescript/IPossibleUnits';
 
 interface UnitConvertingState {
-  unit: "mass" | "temperature" | "speed" | "length" | "";
+  unit: IPossibleUnits
 }
 
 const initialState: UnitConvertingState = {
