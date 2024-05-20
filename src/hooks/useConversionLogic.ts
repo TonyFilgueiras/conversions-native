@@ -50,20 +50,48 @@ const useConversionLogic = () => {
     }
   }, [unitConverting]);
 
-  const handleValueChange1 = (newValue: string) => {
-    setValue1(newValue);
-    const value1Number = Number(newValue);
-    const convertedValue = convert(value1Number, unit1, unit2, unitConverting);
-    setValue2(String(convertedValue));
-  };
 
-  const handleValueChange2 = (newValue: string) => {
-    setValue2(newValue);
-    const value2Number = Number(newValue);
-    const convertedValue = convert(value2Number, unit2, unit1, unitConverting);
-    setValue1(String(convertedValue));
-  };
+  function handleValueChange1(newValue: string) {
+    // Replace commas with dots
+    let sanitizedValue = newValue.replace(/,/g, '.');
+  
+    // Ensure there is only one dot in the value
+    const dotCount = (sanitizedValue.match(/\./g) || []).length;
+    if (dotCount > 1) {
+      // Remove the last entered dot
+      sanitizedValue = sanitizedValue.slice(0, sanitizedValue.lastIndexOf('.')) + sanitizedValue.slice(sanitizedValue.lastIndexOf('.') + 1);
+    }
+  
+    // Prevent invalid formats like '0.2.456'
+    if (/^\d*\.?\d*$/.test(sanitizedValue)) {
+      setValue1(sanitizedValue);
+      const value1Number = Number(sanitizedValue);
+      const convertedValue = convert(value1Number, unit1, unit2, unitConverting);
+      setValue2(String(convertedValue));
+    }
+  }
 
+  function handleValueChange2(newValue: string) {
+    // Replace commas with dots
+    let sanitizedValue = newValue.replace(/,/g, '.');
+  
+    // Ensure there is only one dot in the value
+    const dotCount = (sanitizedValue.match(/\./g) || []).length;
+    if (dotCount > 1) {
+      // Remove the last entered dot
+      sanitizedValue = sanitizedValue.slice(0, sanitizedValue.lastIndexOf('.')) + sanitizedValue.slice(sanitizedValue.lastIndexOf('.') + 1);
+    }
+  
+    // Prevent invalid formats like '0.2.456'
+    if (/^\d*\.?\d*$/.test(sanitizedValue)) {
+      setValue2(sanitizedValue);
+      const value2Number = Number(sanitizedValue);
+      const convertedValue = convert(value2Number, unit2, unit1, unitConverting);
+      setValue1(String(convertedValue));
+    }
+  }
+  
+  
   const handleUnitChange1 = (selectedUnit: string) => {
     let otherUnit = unit2;
     if (unit2 == selectedUnit) {
