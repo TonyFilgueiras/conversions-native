@@ -9,7 +9,7 @@ const rewardedAd = RewardedAd.createForAdRequest(rewardedAdUnitId, {
   requestNonPersonalizedAdsOnly: true,
 });
 
-const HelpDeveloper = () => {
+export default function HelpDeveloper() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -58,5 +58,3 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
 });
-
-export default HelpDeveloper;

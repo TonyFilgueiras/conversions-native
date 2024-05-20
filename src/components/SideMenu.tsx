@@ -4,6 +4,7 @@ import { colors } from "../constants/colorTheme";
 import { HomeScreenNavigationProp } from "../screens/HomeScreen";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { closeMenu } from "../store/sideMenuSlice";
 
 interface Props {
   navigation: HomeScreenNavigationProp;
@@ -11,6 +12,7 @@ interface Props {
 
 const SideMenu = ({ navigation }: Props) => {
   const isVisible = useSelector((state: RootState) => state.sideMenu.isVisible);
+  const dispatch = useDispatch();
   const sideMenuAnimation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -34,12 +36,17 @@ const SideMenu = ({ navigation }: Props) => {
     outputRange: [-320, 0],
   });
 
+  function handleMenuItemSelected(navigateTo: any) {
+    dispatch(closeMenu())
+    navigation.navigate(navigateTo)  
+  }
+
   return (
     <Animated.View style={[styles.container, { transform: [{ translateX }] }]}>
-      <TouchableOpacity onPress={() => navigation.navigate("Conversion", { unitConverting: "mass" })}>
+      <TouchableOpacity onPress={() => handleMenuItemSelected("Options")}>
         <Text style={styles.menuItem}>Options</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => Alert.alert("Help a Developer")}>
+      <TouchableOpacity onPress={() => handleMenuItemSelected("HelpDeveloper")}>
         <Text style={styles.menuItem}>Help a Developer</Text>
       </TouchableOpacity>
     </Animated.View>
@@ -56,10 +63,10 @@ const styles = StyleSheet.create({
     elevation: 60,
   },
   menuItem: {
-    borderWidth: 1,
+    // borderWidth: 1,
     color: "white",
     fontSize: 18,
-    padding: 10,
+    paddingVertical: 15,
     marginVertical: 10,
   },
 });

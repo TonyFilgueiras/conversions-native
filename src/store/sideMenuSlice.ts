@@ -14,11 +14,14 @@ export const sideMenuSlice = createSlice({
   reducers: {
     toggleIsVisible: (state) => {
       state.isVisible = !state.isVisible;
+    },
+    closeMenu: (state) => {
+      state.isVisible = false
     }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { toggleIsVisible } = sideMenuSlice.actions;
+export const { toggleIsVisible, closeMenu } = sideMenuSlice.actions;
 
 export default sideMenuSlice.reducer;

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeUnit } from "../store/unitConvertingSlice";
 import { IPossibleUnits } from "../typescript/IPossibleUnits";
 import { RootState } from "../store/store";
-import { toggleIsVisible } from "../store/sideMenuSlice";
+import { closeMenu } from "../store/sideMenuSlice";
 
 type Props = {
   title: string;
@@ -42,7 +42,7 @@ export default function ConversionNavigationContainer({ title, linkTo, navigatio
 
   const handleCellPress = () => {
     if (isSideMenuVisible) {
-      dispatch(toggleIsVisible())
+      dispatch(closeMenu())
       return
     }
     dispatch(changeUnit(title.toLowerCase() as IPossibleUnits))

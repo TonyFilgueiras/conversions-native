@@ -17,7 +17,9 @@ interface Props {
 // Define the navigation stack parameter list
 export type RootStackParamList = {
   Home: undefined;
-  Conversion: { unitConverting: string }; // Define the parameter type for the 'Conversion' screen
+  Conversion: { unitConverting: string };
+  Options: undefined
+  HelpDeveloper: undefined
 };
 
 export default function HomeScreen({ navigation }: Props) {
