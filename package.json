@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build": "eas build -p android --profile preview"
   },
   "dependencies": {
     "@react-navigation/drawer": "^6.6.15",
@@ -16,7 +17,6 @@
     "@reduxjs/toolkit": "^2.2.5",
     "@types/react-native-vector-icons": "^6.4.18",
     "expo": "~51.0.2",
-    "expo-ads-admob": "^13.0.0",
     "expo-dev-client": "~4.0.14",
     "expo-router": "^3.5.14",
     "expo-status-bar": "~1.12.1",

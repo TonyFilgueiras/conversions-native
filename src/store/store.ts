@@ -1,13 +1,10 @@
 // store.js
 import { configureStore } from '@reduxjs/toolkit';
 import unitConvertingReducer from './unitConvertingSlice';
-import sideMenuSlice from './sideMenuSlice';
 
 export const store = configureStore({
 reducer: {
     unitConverting: unitConvertingReducer,
-    sideMenu: sideMenuSlice
-  ,
   },
 });
 

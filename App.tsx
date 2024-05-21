@@ -4,22 +4,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ConversionScreen from "./src/screens/ConversionScreen";
 import { colors } from "./src/constants/colorTheme";
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { RootState, store } from "./src/store/store";
-import Icon from "react-native-vector-icons/Ionicons";
-import { toggleIsVisible } from "./src/store/sideMenuSlice";
-import OptionsScreen from "./src/screens/OptionsScreen";
-// import HelpDeveloper from "./src/screens/HelpDeveloperScreen";
-// import mobileAds from 'react-native-google-mobile-ads';
-import TestScreen from "./src/screens/TestScreen";
 
 const Stack = createNativeStackNavigator();
 
 function AppContent() {
   const unitConverting = useSelector((state: RootState) => state.unitConverting.unit);
-  const isSideMenuVisible = useSelector((state: RootState) => state.sideMenu.isVisible);
-  const dispatch = useDispatch();
-  // console.log(HelpDeveloper)
 
   return (
     <NavigationContainer>
@@ -36,15 +27,6 @@ function AppContent() {
           name="Home"
           component={HomeScreen}
           options={{
-            headerLeft: () => (
-              <Icon
-                name={isSideMenuVisible ? "close": "menu"} // Choose the icon name from Ionicons (or any other icon set)
-                size={30}
-                color="white"
-                onPress={() => dispatch(toggleIsVisible())}
-                style={styles.icon}
-              />
-            ),
             title: "Basic Unit Converter",
           }}
         />
@@ -55,32 +37,12 @@ function AppContent() {
             title: `${unitConverting.charAt(0).toUpperCase() + unitConverting.slice(1)} Conversion`,
           }}
         />
-        <Stack.Screen
-          name="Options"
-          component={OptionsScreen}
-          options={{
-            title: `Options`,
-          }}
-        />
-        {/* <Stack.Screen
-          name="HelpDeveloper"
-          component={HelpDeveloper}
-          options={{
-            title: `Help a Developer`,
-          }}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 export default function App() {
-  // mobileAds()
-  // .initialize()
-  // .then(adapterStatuses => {
-  //   console.log(adapterStatuses)
-  //   console.log("iniciou")
-  // });
   return (
     <Provider store={store}>
       <AppContent />

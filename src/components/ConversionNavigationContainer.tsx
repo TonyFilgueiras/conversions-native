@@ -6,11 +6,9 @@ import speed from "../../assets/speed.png";
 import temp from "../../assets/temp.png";
 import weight from "../../assets/weight.png";
 import length from "../../assets/length.png";
-import { useDispatch, useSelector } from "react-redux";
 import { changeUnit } from "../store/unitConvertingSlice";
 import { IPossibleUnits } from "../typescript/IPossibleUnits";
-import { RootState } from "../store/store";
-import { closeMenu } from "../store/sideMenuSlice";
+import { useDispatch } from "react-redux";
 
 type Props = {
   title: string;
@@ -20,8 +18,6 @@ type Props = {
 
 export default function ConversionNavigationContainer({ title, linkTo, navigation, ...props }: Props) {
   const dispatch = useDispatch()
-  const isSideMenuVisible = useSelector((state: RootState) => state.sideMenu.isVisible)
-
   let cardImage;
 
   switch (title) {
@@ -41,10 +37,7 @@ export default function ConversionNavigationContainer({ title, linkTo, navigatio
   }
 
   const handleCellPress = () => {
-    if (isSideMenuVisible) {
-      dispatch(closeMenu())
-      return
-    }
+
     dispatch(changeUnit(title.toLowerCase() as IPossibleUnits))
     navigation.navigate("Conversion", { unitConverting: title.toLowerCase() });
   };

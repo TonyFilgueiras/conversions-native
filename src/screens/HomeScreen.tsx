@@ -5,8 +5,6 @@ import { colors } from "../constants/colorTheme";
 import ConversionNavigationContainer from "../components/ConversionNavigationContainer";
 import { useDispatch } from "react-redux";
 import { resetUnit } from "../store/unitConvertingSlice";
-import SideMenu from "../components/SideMenu";
-
 // Define the type for the navigation prop
 export type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 
@@ -31,14 +29,13 @@ export default function HomeScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <ConversionNavigationContainer style={styles.cell} title="Mass" linkTo="Mass" navigation={navigation} />
         <ConversionNavigationContainer style={styles.cell} title="Speed" linkTo="Speed" navigation={navigation} />
-      </View>
-      <View style={styles.row}>
-        <ConversionNavigationContainer style={styles.cell} title="Temperature" linkTo="Temperature" navigation={navigation} />
         <ConversionNavigationContainer style={styles.cell} title="Length" linkTo="Length" navigation={navigation} />
       </View>
-      <SideMenu navigation={navigation} />
+      <View style={styles.row}>
+        <ConversionNavigationContainer style={styles.cell} title="Mass" linkTo="Mass" navigation={navigation} />
+        <ConversionNavigationContainer style={styles.cell} title="Temperature" linkTo="Temperature" navigation={navigation} />
+      </View>
     </View>
   );
 }
