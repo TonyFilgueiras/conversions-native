@@ -2,10 +2,10 @@ import { View, Text, StyleSheet, TouchableOpacity, TouchableOpacityProps, Image 
 import React, { useEffect } from "react";
 import { colors } from "../constants/colorTheme";
 import { HomeScreenNavigationProp } from "../screens/HomeScreen";
-import speed from "../../assets/speed.png";
-import temp from "../../assets/temp.png";
+import speed from "../../assets/speed2.png";
+import temp from "../../assets/temp2.png";
 import weight from "../../assets/weight.png";
-import length from "../../assets/length.png";
+import length from "../../assets/length2.png";
 import { useDispatch, useSelector } from "react-redux";
 import { changeUnit } from "../store/unitConvertingSlice";
 import { IPossibleUnits } from "../typescript/IPossibleUnits";

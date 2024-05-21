@@ -31,12 +31,12 @@ export default function HomeScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <ConversionNavigationContainer style={styles.cell} title="Mass" linkTo="Mass" navigation={navigation} />
         <ConversionNavigationContainer style={styles.cell} title="Speed" linkTo="Speed" navigation={navigation} />
+        <ConversionNavigationContainer style={styles.cell} title="Length" linkTo="Length" navigation={navigation} />
       </View>
       <View style={styles.row}>
+        <ConversionNavigationContainer style={styles.cell} title="Mass" linkTo="Mass" navigation={navigation} />
         <ConversionNavigationContainer style={styles.cell} title="Temperature" linkTo="Temperature" navigation={navigation} />
-        <ConversionNavigationContainer style={styles.cell} title="Length" linkTo="Length" navigation={navigation} />
       </View>
       <SideMenu navigation={navigation} />
     </View>
