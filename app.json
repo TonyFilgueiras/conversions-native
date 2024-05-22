@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "tony-conversions-native",
+    "name": "Basic Unit Converter",
     "slug": "tony-conversions-native",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,14 +12,19 @@
       "backgroundColor": "#ebdbff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.expo.buc",
+      "infoPlist": {
+        "CFBundleDisplayName": "Basic Unit Converter"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ebdbff"
       },
-      "package": "com.expo.buc"
+      "package": "com.expo.buc",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

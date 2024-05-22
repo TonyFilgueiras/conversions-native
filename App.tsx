@@ -11,7 +11,6 @@ import { toggleIsVisible } from "./src/store/sideMenuSlice";
 import OptionsScreen from "./src/screens/OptionsScreen";
 // import HelpDeveloper from "./src/screens/HelpDeveloperScreen";
 // import mobileAds from 'react-native-google-mobile-ads';
-import TestScreen from "./src/screens/TestScreen";
 import "expo-dev-client"
 
 const Stack = createNativeStackNavigator();
