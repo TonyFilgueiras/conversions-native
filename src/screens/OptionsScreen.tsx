@@ -6,7 +6,6 @@ import SelectDropdown from "react-native-select-dropdown";
 const options = [{ label: "Português", flag: "", value: "1" }];
 
 export default function OptionsScreen() {
-  console.log(options[0].label);
   return (
     <View style={styles.mainContainer}>
       <SelectDropdown
@@ -43,14 +42,16 @@ export default function OptionsScreen() {
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: colors.backgroundPurple,
+    justifyContent: "center",
     flex: 1,
   },
   dropdownButtonStyle: {
-    backgroundColor: "white",
-    borderWidth: 1,
-    height: 40,
-    margin: 10,
-    padding: 10,
+    backgroundColor: colors.lightPurple,
+    borderWidth: 2,
+    borderColor: colors.purple,
+    margin: 40,
+    padding: 15,
+    color: "white",
   },
   dropdownMenuStyle: {
     paddingVertical: 10,

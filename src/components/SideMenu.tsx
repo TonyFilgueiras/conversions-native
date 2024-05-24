@@ -5,6 +5,7 @@ import { HomeScreenNavigationProp } from "../screens/HomeScreen";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { closeMenu } from "../store/sideMenuSlice";
+import { BannerAd, BannerAdSize, TestIds } from "react-native-google-mobile-ads";
 
 interface Props {
   navigation: HomeScreenNavigationProp;
@@ -47,8 +48,9 @@ const SideMenu = ({ navigation }: Props) => {
         <Text style={styles.menuItem}>Options</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => handleMenuItemSelected("HelpDeveloper")}>
-        <Text style={styles.menuItem}>Help a Developer</Text>
+        <Text style={styles.menuItem}>Go Premium</Text>
       </TouchableOpacity>
+      <BannerAd unitId={TestIds.BANNER } size={BannerAdSize.WIDE_SKYSCRAPER} /> 
     </Animated.View>
   );
 };
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     paddingVertical: 15,
-    marginVertical: 10,
+    marginVertical: 20,
   },
 });
 
