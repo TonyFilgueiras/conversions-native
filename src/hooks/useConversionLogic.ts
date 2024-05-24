@@ -49,49 +49,51 @@ const useConversionLogic = () => {
       setValue2(String(convertedValue));
     }
   }, [unitConverting]);
-
-
+  
+  function handleValueChange(
+    newValue: string,
+    setValue: (value: string) => void,
+    otherSetValue: (value: string) => void,
+    fromUnit: string,
+    toUnit: string,
+  ) {
+    // Replace commas with dots
+    let sanitizedValue = newValue.replace(/,/g, '.');
+  
+    // Ensure there is only one dot in the value
+    const dotCount = (sanitizedValue.match(/\./g) || []).length;
+    if (dotCount > 1) {
+      // Remove the last entered dot
+      sanitizedValue = sanitizedValue.slice(0, sanitizedValue.lastIndexOf('.')) + sanitizedValue.slice(sanitizedValue.lastIndexOf('.') + 1);
+    }
+  
+    // Prevent invalid formats like '0.2.456'
+    if (/^\d*\.?\d*$/.test(sanitizedValue)) {
+      // Remove leading zeros
+      sanitizedValue = sanitizedValue.replace(/^0+(?=\d)/, '');
+  
+      setValue(sanitizedValue);
+  
+      const valueNumber = Number(sanitizedValue);
+      const convertedValue = convert(valueNumber, fromUnit, toUnit, unitConverting);
+  
+      // Format the converted value to remove trailing zeros
+      const formattedConvertedValue = String(Number(convertedValue.toFixed(8))); // Use toFixed to limit precision and then convert to Number to strip trailing zeros
+  
+      otherSetValue(formattedConvertedValue);
+    }
+  }
+    
+  // Usage in your component
+  
   function handleValueChange1(newValue: string) {
-    // Replace commas with dots
-    let sanitizedValue = newValue.replace(/,/g, '.');
-  
-    // Ensure there is only one dot in the value
-    const dotCount = (sanitizedValue.match(/\./g) || []).length;
-    if (dotCount > 1) {
-      // Remove the last entered dot
-      sanitizedValue = sanitizedValue.slice(0, sanitizedValue.lastIndexOf('.')) + sanitizedValue.slice(sanitizedValue.lastIndexOf('.') + 1);
-    }
-  
-    // Prevent invalid formats like '0.2.456'
-    if (/^\d*\.?\d*$/.test(sanitizedValue)) {
-      setValue1(sanitizedValue);
-      const value1Number = Number(sanitizedValue);
-      const convertedValue = convert(value1Number, unit1, unit2, unitConverting);
-      setValue2(String(convertedValue));
-    }
+    handleValueChange(newValue, setValue1, setValue2, unit1, unit2);
   }
-
+  
   function handleValueChange2(newValue: string) {
-    // Replace commas with dots
-    let sanitizedValue = newValue.replace(/,/g, '.');
-  
-    // Ensure there is only one dot in the value
-    const dotCount = (sanitizedValue.match(/\./g) || []).length;
-    if (dotCount > 1) {
-      // Remove the last entered dot
-      sanitizedValue = sanitizedValue.slice(0, sanitizedValue.lastIndexOf('.')) + sanitizedValue.slice(sanitizedValue.lastIndexOf('.') + 1);
-    }
-  
-    // Prevent invalid formats like '0.2.456'
-    if (/^\d*\.?\d*$/.test(sanitizedValue)) {
-      setValue2(sanitizedValue);
-      const value2Number = Number(sanitizedValue);
-      const convertedValue = convert(value2Number, unit2, unit1, unitConverting);
-      setValue1(String(convertedValue));
-    }
+    handleValueChange(newValue, setValue2, setValue1, unit2, unit1);
   }
-  
-  
+    
   const handleUnitChange1 = (selectedUnit: string) => {
     let otherUnit = unit2;
     if (unit2 == selectedUnit) {
