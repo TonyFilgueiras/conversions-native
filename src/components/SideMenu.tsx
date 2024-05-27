@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { closeMenu } from "../store/sideMenuSlice";
 import { BannerAd, BannerAdSize, TestIds } from "react-native-google-mobile-ads";
+import { useTranslation } from "../hooks/useTranslation";
 
 interface Props {
   navigation: HomeScreenNavigationProp;
@@ -15,6 +16,7 @@ const SideMenu = ({ navigation }: Props) => {
   const isVisible = useSelector((state: RootState) => state.sideMenu.isVisible);
   const dispatch = useDispatch();
   const sideMenuAnimation = useRef(new Animated.Value(0)).current;
+  const {t} = useTranslation()
 
   useEffect(() => {
     if (isVisible) {
@@ -45,10 +47,10 @@ const SideMenu = ({ navigation }: Props) => {
   return (
     <Animated.View style={[styles.container, { transform: [{ translateX }] }]}>
       <TouchableOpacity onPress={() => handleMenuItemSelected("Options")}>
-        <Text style={styles.menuItem}>Options</Text>
+        <Text style={styles.menuItem}>{t("Options")}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => handleMenuItemSelected("HelpDeveloper")}>
-        <Text style={styles.menuItem}>Go Premium</Text>
+        <Text style={styles.menuItem}>{t("Go Premium")}</Text>
       </TouchableOpacity>
       <BannerAd unitId={TestIds.BANNER } size={BannerAdSize.WIDE_SKYSCRAPER} /> 
     </Animated.View>

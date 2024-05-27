@@ -1,0 +1,36 @@
+{
+    "Conversion": "Conversion",
+    "Mass Conversion": "Mass Conversion",
+    "Speed Conversion": "Speed Conversion",
+    "Temperature Conversion": "Temperature Conversion",
+    "Length Conversion": "Length Conversion",
+    "Options": "Options",
+
+    "Kilogram": "Kilogram",
+    "Gram": "Gram",
+    "Milligram": "Milligram",
+    "Pound": "Pound",
+    "Ounce": "Ounce",
+
+    "Meter": "Meter",
+    "Kilometer": "Kilometer",
+    "Centimeter": "Centimeter",
+    "Millimeter": "Millimeter",
+    "Mile": "Mile",
+    "Yard": "Yard",
+    "Foot": "Foot",
+    "Inch": "Inch",
+
+    "Meters per second": "Meters per second",
+    "Kilometers per hour": "Kilometers per hour",
+    "Miles per hour": "Miles per hour",
+    "Feet per second": "Feet per second",
+    "Knot": "Knot",
+
+    "Go Premium": "Go Premium",
+
+    "Speed": "Speed",
+    "Temperature": "Temperature",
+    "Mass": "Mass",
+    "Length": "Length"
+}

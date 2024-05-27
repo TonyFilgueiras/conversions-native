@@ -1,30 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import useConversion, { lengthUnits, massUnits, speedUnits, temperatureUnits } from "../hooks/useConversion";
-
-const unitMapping : Record<string, any> = {
-  mass: {
-    defaultUnit1: "kilogram",
-    defaultUnit2: "pound",
-    units: massUnits,
-  },
-  length: {
-    defaultUnit1: "meter",
-    defaultUnit2: "foot",
-    units: lengthUnits,
-  },
-  temperature: {
-    defaultUnit1: "celsius",
-    defaultUnit2: "fahrenheit",
-    units: temperatureUnits,
-  },
-  speed: {
-    defaultUnit1: "metersPerSecond",
-    defaultUnit2: "milesPerHour",
-    units: speedUnits,
-  },
-};
+import useConversion from "../hooks/useConversion";
 
 const useConversionLogic = () => {
   const unitConverting = useSelector((state: RootState) => state.unitConverting.unit);
@@ -34,8 +11,30 @@ const useConversionLogic = () => {
   const [unit2, setUnit2] = useState("");
   const [symbol1, setSymbol1] = useState("");
   const [symbol2, setSymbol2] = useState("");
-  const { convert } = useConversion();
+  const { convert, lengthUnits, massUnits, speedUnits, temperatureUnits } = useConversion();
 
+  const unitMapping: Record<string, any> = {
+    mass: {
+      defaultUnit1: "kilogram",
+      defaultUnit2: "pound",
+      units: massUnits,
+    },
+    length: {
+      defaultUnit1: "meter",
+      defaultUnit2: "foot",
+      units: lengthUnits,
+    },
+    temperature: {
+      defaultUnit1: "celsius",
+      defaultUnit2: "fahrenheit",
+      units: temperatureUnits,
+    },
+    speed: {
+      defaultUnit1: "metersPerSecond",
+      defaultUnit2: "milesPerHour",
+      units: speedUnits,
+    },
+  };
   useEffect(() => {
     if (unitConverting) {
       const { defaultUnit1, defaultUnit2, units } = unitMapping[unitConverting];
@@ -49,56 +48,56 @@ const useConversionLogic = () => {
       setValue2(String(convertedValue));
     }
   }, [unitConverting]);
-  
+
   function handleValueChange(
     newValue: string,
     setValue: (value: string) => void,
     otherSetValue: (value: string) => void,
     fromUnit: string,
-    toUnit: string,
+    toUnit: string
   ) {
     // Replace commas with dots
-    let sanitizedValue = newValue.replace(/,/g, '.');
-  
+    let sanitizedValue = newValue.replace(/,/g, ".");
+
     // Ensure there is only one dot in the value
     const dotCount = (sanitizedValue.match(/\./g) || []).length;
     if (dotCount > 1) {
       // Remove the last entered dot
-      sanitizedValue = sanitizedValue.slice(0, sanitizedValue.lastIndexOf('.')) + sanitizedValue.slice(sanitizedValue.lastIndexOf('.') + 1);
+      sanitizedValue = sanitizedValue.slice(0, sanitizedValue.lastIndexOf(".")) + sanitizedValue.slice(sanitizedValue.lastIndexOf(".") + 1);
     }
-  
+
     // Prevent invalid formats like '0.2.456'
     if (/^\d*\.?\d*$/.test(sanitizedValue)) {
       // Remove leading zeros
-      sanitizedValue = sanitizedValue.replace(/^0+(?=\d)/, '');
-  
+      sanitizedValue = sanitizedValue.replace(/^0+(?=\d)/, "");
+
       setValue(sanitizedValue);
-  
+
       const valueNumber = Number(sanitizedValue);
       const convertedValue = convert(valueNumber, fromUnit, toUnit, unitConverting);
-  
+
       // Format the converted value to remove trailing zeros
       const formattedConvertedValue = String(Number(convertedValue.toFixed(8))); // Use toFixed to limit precision and then convert to Number to strip trailing zeros
-  
+
       otherSetValue(formattedConvertedValue);
     }
   }
-    
+
   // Usage in your component
-  
+
   function handleValueChange1(newValue: string) {
     handleValueChange(newValue, setValue1, setValue2, unit1, unit2);
   }
-  
+
   function handleValueChange2(newValue: string) {
     handleValueChange(newValue, setValue2, setValue1, unit2, unit1);
   }
-    
+
   const handleUnitChange1 = (selectedUnit: string) => {
     let otherUnit = unit2;
     if (unit2 == selectedUnit) {
       setUnit2(unit1);
-      setSymbol2(symbol1)
+      setSymbol2(symbol1);
       otherUnit = unit1;
     }
     setUnit1(selectedUnit);
@@ -111,7 +110,7 @@ const useConversionLogic = () => {
     let otherUnit = unit1;
     if (unit1 == selectedUnit) {
       setUnit1(unit2);
-      setSymbol1(symbol2)
+      setSymbol1(symbol2);
       otherUnit = unit2;
     }
     setUnit2(selectedUnit);

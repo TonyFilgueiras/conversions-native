@@ -1,27 +1,29 @@
+// languageSelectedSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import en from '../languages/en.json';
+import pt from '../languages/pt.json';
 
-interface LanguageSelectedState {
-  language: boolean;
+interface LanguageState {
+  language: 'en' | 'pt';
+  translations: { [key: string]: string };
 }
 
-const initialState: LanguageSelectedState = {
-  language: false,
+const initialState: LanguageState = {
+  language: 'en',
+  translations: en,
 };
 
-export const languageSelectedSlice = createSlice({
+export const languageSlice = createSlice({
   name: 'languageSelected',
   initialState,
   reducers: {
-    toggleIsVisible: (state) => {
-      state.language = !state.language;
+    setLanguage: (state, action: PayloadAction<'en' | 'pt'>) => {
+      state.language = action.payload;
+      state.translations = action.payload === 'en' ? en : pt;
     },
-    closeMenu: (state) => {
-      state.language = false
-    }
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { toggleIsVisible, closeMenu } = languageSelectedSlice.actions;
+export const { setLanguage } = languageSlice.actions;
 
-export default languageSelectedSlice.reducer;
+export default languageSlice.reducer;

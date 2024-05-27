@@ -6,6 +6,7 @@ import ConversionNavigationContainer from "../components/ConversionNavigationCon
 import { useDispatch } from "react-redux";
 import { resetUnit } from "../store/unitConvertingSlice";
 import SideMenu from "../components/SideMenu";
+import { useTranslation } from "../hooks/useTranslation";
 
 // Define the type for the navigation prop
 export type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
@@ -24,6 +25,7 @@ export type RootStackParamList = {
 
 export default function HomeScreen({ navigation }: Props) {
   const dispatch = useDispatch();
+  const {t} = useTranslation()
 
   React.useEffect(() => {
     dispatch(resetUnit());
@@ -31,12 +33,12 @@ export default function HomeScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <ConversionNavigationContainer style={styles.cell} title="Speed" linkTo="Speed" navigation={navigation} />
-        <ConversionNavigationContainer style={styles.cell} title="Length" linkTo="Length" navigation={navigation} />
+        <ConversionNavigationContainer style={styles.cell} title={t("Speed")} unit="speed" linkTo="Speed" navigation={navigation} />
+        <ConversionNavigationContainer style={styles.cell} title={t("Length")} unit="length" linkTo="Length" navigation={navigation} />
       </View>
       <View style={styles.row}>
-        <ConversionNavigationContainer style={styles.cell} title="Mass" linkTo="Mass" navigation={navigation} />
-        <ConversionNavigationContainer style={styles.cell} title="Temperature" linkTo="Temperature" navigation={navigation} />
+        <ConversionNavigationContainer style={styles.cell} title={t("Mass")} unit="mass" linkTo="Mass" navigation={navigation} />
+        <ConversionNavigationContainer style={styles.cell} title={t("Temperature")} unit="temperature" linkTo="Temperature" navigation={navigation} />
       </View>
       <SideMenu navigation={navigation} />
     </View>

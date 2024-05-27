@@ -14,28 +14,29 @@ import { closeMenu } from "../store/sideMenuSlice";
 
 type Props = {
   title: string;
+  unit: IPossibleUnits;
   linkTo: string;
   navigation: HomeScreenNavigationProp;
 } & TouchableOpacityProps;
 
-export default function ConversionNavigationContainer({ title, linkTo, navigation, ...props }: Props) {
+export default function ConversionNavigationContainer({ title, linkTo, navigation, unit, ...props }: Props) {
   const dispatch = useDispatch()
   const isSideMenuVisible = useSelector((state: RootState) => state.sideMenu.isVisible)
 
   let cardImage;
 
-  switch (title) {
-    case "Speed":
+  switch (unit) {
+    case "speed":
       cardImage = speed;
       break;
-    case "Temperature":
+    case "temperature":
       cardImage = temp;
       break;
-    case "Mass":
+    case "mass":
       cardImage = weight;
       break;
 
-    case "Length":
+    case "length":
       cardImage = length;
       break;
   }
@@ -45,8 +46,8 @@ export default function ConversionNavigationContainer({ title, linkTo, navigatio
       dispatch(closeMenu())
       return
     }
-    dispatch(changeUnit(title.toLowerCase() as IPossibleUnits))
-    navigation.navigate("Conversion", { unitConverting: title.toLowerCase() });
+    dispatch(changeUnit(unit))
+    navigation.navigate("Conversion", { unitConverting: unit });
   };
 
   return (

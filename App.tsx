@@ -9,9 +9,10 @@ import { RootState, store } from "./src/store/store";
 import Icon from "react-native-vector-icons/Ionicons";
 import { toggleIsVisible } from "./src/store/sideMenuSlice";
 import OptionsScreen from "./src/screens/OptionsScreen";
-import HelpDeveloper from "./src/screens/HelpDeveloperScreen";
 import mobileAds, { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import "expo-dev-client"
+import React from "react";
+import { useTranslation } from "./src/hooks/useTranslation";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,7 +20,8 @@ function AppContent() {
   const unitConverting = useSelector((state: RootState) => state.unitConverting.unit);
   const isSideMenuVisible = useSelector((state: RootState) => state.sideMenu.isVisible);
   const dispatch = useDispatch();
-
+  const { t } = useTranslation()
+  
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={colors.black} />
@@ -51,21 +53,14 @@ function AppContent() {
           name="Conversion"
           component={ConversionScreen}
           options={{
-            title: `${unitConverting.charAt(0).toUpperCase() + unitConverting.slice(1)} Conversion`,
+            title: `${t(unitConverting.charAt(0).toUpperCase() + unitConverting.slice(1) + " Conversion")}`,
           }}
         />
         <Stack.Screen
           name="Options"
           component={OptionsScreen}
           options={{
-            title: `Options`,
-          }}
-        />
-        <Stack.Screen
-          name="HelpDeveloper"
-          component={HelpDeveloper}
-          options={{
-            title: `Help a Developer`,
+            title: t("Options"),
           }}
         />
       </Stack.Navigator>
