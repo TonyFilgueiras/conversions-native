@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "main": "expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
+    "start": "npx expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "buildTest": "eas build -p android --profile preview",
+    "buildDev": "eas build -p android --profile development",
+    "buildPrev": "eas build -p android --profile preview",
     "build": "eas build"
   },
   "dependencies": {

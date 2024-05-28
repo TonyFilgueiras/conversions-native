@@ -9,10 +9,14 @@ import { RootState, store } from "./src/store/store";
 import Icon from "react-native-vector-icons/Ionicons";
 import { toggleIsVisible } from "./src/store/sideMenuSlice";
 import OptionsScreen from "./src/screens/OptionsScreen";
-import mobileAds, { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-import "expo-dev-client"
+import mobileAds, { BannerAd, BannerAdSize, TestIds } from "react-native-google-mobile-ads";
+import "expo-dev-client";
 import React from "react";
 import { useTranslation } from "./src/hooks/useTranslation";
+import { getLocales } from "expo-localization";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setLanguage } from "./src/store/languageSelectedSlice";
+import { AvailableLanguages } from "./src/typescript/IAvailableLanguages";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,8 +24,27 @@ function AppContent() {
   const unitConverting = useSelector((state: RootState) => state.unitConverting.unit);
   const isSideMenuVisible = useSelector((state: RootState) => state.sideMenu.isVisible);
   const dispatch = useDispatch();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
+
+  async function loadLanguage() {
+    try {
+      const language = await AsyncStorage.getItem("language");
   
+      if (language) {
+        dispatch(setLanguage(language as AvailableLanguages))
+      } else if (getLocales()[0].languageCode) {
+        dispatch(setLanguage(getLocales()[0].languageCode as AvailableLanguages))
+      }
+      
+    } catch {
+      console.log("deu um erro ai")
+    }
+  }
+
+  React.useEffect(() => {
+    loadLanguage();
+  }, [dispatch]);
+
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={colors.black} />
@@ -39,7 +62,7 @@ function AppContent() {
           options={{
             headerLeft: () => (
               <Icon
-                name={isSideMenuVisible ? "close": "menu"} // Choose the icon name from Ionicons (or any other icon set)
+                name={isSideMenuVisible ? "close" : "menu"} // Choose the icon name from Ionicons (or any other icon set)
                 size={30}
                 color="white"
                 onPress={() => dispatch(toggleIsVisible())}
@@ -64,16 +87,15 @@ function AppContent() {
           }}
         />
       </Stack.Navigator>
-      <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.FULL_BANNER } />
+      <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.FULL_BANNER} />
     </NavigationContainer>
   );
 }
 
 export default function App() {
   mobileAds()
-  .initialize()
-  .then(adapterStatuses => {
-  });
+    .initialize()
+    .then((adapterStatuses) => {});
   return (
     <Provider store={store}>
       <AppContent />
