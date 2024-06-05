@@ -8,6 +8,8 @@ import { closeMenu } from "../store/sideMenuSlice";
 import { BannerAd, BannerAdSize, TestIds } from "react-native-google-mobile-ads";
 import { useTranslation } from "../hooks/useTranslation";
 
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-3664148475226821~5782224309';
+
 interface Props {
   navigation: HomeScreenNavigationProp;
 }
@@ -49,10 +51,10 @@ const SideMenu = ({ navigation }: Props) => {
       <TouchableOpacity onPress={() => handleMenuItemSelected("Options")}>
         <Text style={styles.menuItem}>{t("Options")}</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleMenuItemSelected("HelpDeveloper")}>
+      {/* <TouchableOpacity onPress={() => handleMenuItemSelected("HelpDeveloper")}>
         <Text style={styles.menuItem}>{t("Go Premium")}</Text>
-      </TouchableOpacity>
-      <BannerAd unitId={TestIds.BANNER } size={BannerAdSize.WIDE_SKYSCRAPER} /> 
+      </TouchableOpacity> */}
+      <BannerAd unitId={adUnitId } size={BannerAdSize.WIDE_SKYSCRAPER} /> 
     </Animated.View>
   );
 };

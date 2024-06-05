@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLanguage } from "../store/languageSelectedSlice";
 import brazil from "../languages/flags/brasil.png"
 import eua from "../languages/flags/eua.png"
+import spain from "../languages/flags/spain.png"
 import { RootState } from "../store/store";
 
 type LanguageOptions = {
@@ -17,6 +18,7 @@ type LanguageOptions = {
 const options: LanguageOptions[] = [
   { label: "Português", flag: brazil, value: "pt" },
   { label: "English", flag: eua, value: "en" },
+  { label: "Español", flag: spain, value: "es" },
 ];
 
 export default function OptionsScreen() {

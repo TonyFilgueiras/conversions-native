@@ -18,6 +18,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setLanguage } from "./src/store/languageSelectedSlice";
 import { AvailableLanguages } from "./src/typescript/IAvailableLanguages";
 
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-3664148475226821~5782224309';
+
 const Stack = createNativeStackNavigator();
 
 function AppContent() {
@@ -87,7 +89,7 @@ function AppContent() {
           }}
         />
       </Stack.Navigator>
-      <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.FULL_BANNER} />
+      <BannerAd unitId={adUnitId} size={BannerAdSize.FULL_BANNER} />
     </NavigationContainer>
   );
 }

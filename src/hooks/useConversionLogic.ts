@@ -67,9 +67,9 @@ const useConversionLogic = () => {
     }
 
     // Prevent invalid formats like '0.2.456'
-    if (/^\d*\.?\d*$/.test(sanitizedValue)) {
-      // Remove leading zeros
-      sanitizedValue = sanitizedValue.replace(/^0+(?=\d)/, "");
+    if (/^-?\d*\.?\d*$/.test(sanitizedValue)) {
+      // Remove leading zeros but allow the negative sign
+      sanitizedValue = sanitizedValue.replace(/^-?0+(?=\d)/, sanitizedValue.startsWith("-") ? "-" : "");
 
       setValue(sanitizedValue);
 

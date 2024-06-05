@@ -2,6 +2,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import en from "../languages/en.json";
 import pt from "../languages/pt.json";
+import es from "../languages/es.json";
 import { getLocales } from "expo-localization";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
@@ -12,9 +13,27 @@ interface LanguageState {
   translations: { [key: string]: string };
 }
 
+const getDefaultLanguage = (): AvailableLanguages => {
+  const languageCode = getLocales()[0].languageCode;
+  if (languageCode === "pt") return "pt";
+  if (languageCode === "es") return "es";
+  return "en";
+};
+
+const getTranslations = (language: AvailableLanguages) => {
+  switch (language) {
+    case "pt":
+      return pt;
+    case "es":
+      return es;
+    default:
+      return en;
+  }
+};
+
 const initialState: LanguageState = {
-  language: getLocales()[0].languageCode == "pt" ? "pt" : "en",
-  translations: getLocales()[0].languageCode == "pt" ? pt : en,
+  language: getDefaultLanguage(),
+  translations: getTranslations(getDefaultLanguage()),
 };
 
 export const languageSlice = createSlice({
@@ -22,9 +41,9 @@ export const languageSlice = createSlice({
   initialState,
   reducers: {
     setLanguage: (state, action: PayloadAction<AvailableLanguages>) => {
-      AsyncStorage.setItem("language", action.payload)
+      AsyncStorage.setItem("language", action.payload);
       state.language = action.payload;
-      state.translations = action.payload === "en" ? en : pt;
+      state.translations = getTranslations(action.payload);
     },
   },
 });
