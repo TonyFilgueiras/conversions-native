@@ -18,7 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setLanguage } from "./src/store/languageSelectedSlice";
 import { AvailableLanguages } from "./src/typescript/IAvailableLanguages";
 
-const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-3664148475226821~5782224309';
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-3664148475226821/9164785719';
 
 const Stack = createNativeStackNavigator();
 
@@ -95,9 +95,18 @@ function AppContent() {
 }
 
 export default function App() {
-  mobileAds()
-    .initialize()
-    .then((adapterStatuses) => {});
+  React.useEffect(() => {
+    const initializeAds = async () => {
+      try {
+        await mobileAds().initialize();
+      } catch (error) {
+        console.error('AdMob initialization error:', error);
+      }
+    };
+
+    initializeAds();
+  }, []);
+
   return (
     <Provider store={store}>
       <AppContent />

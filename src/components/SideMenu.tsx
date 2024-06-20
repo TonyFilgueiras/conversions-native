@@ -8,7 +8,7 @@ import { closeMenu } from "../store/sideMenuSlice";
 import { BannerAd, BannerAdSize, TestIds } from "react-native-google-mobile-ads";
 import { useTranslation } from "../hooks/useTranslation";
 
-const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-3664148475226821~5782224309';
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-3664148475226821/9196575303';
 
 interface Props {
   navigation: HomeScreenNavigationProp;
@@ -38,7 +38,7 @@ const SideMenu = ({ navigation }: Props) => {
 
   const translateX = sideMenuAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [-320, 0],
+    outputRange: [-400, 0],
   });
 
   function handleMenuItemSelected(navigateTo: any) {
